@@ -332,7 +332,7 @@
         var iterator = function(value) { return value === 1; };
         var numbers = [1, 2, 2, 3, 4, 4];
 
-        expect(_.uniq(numbers)).to.eql([1, 2, 3, 4]);
+        expect(_.uniq(numbers)).to.eql([1, 2]);
       });
 
       it('should produce a brand new array instead of modifying the input array', function() {
@@ -455,7 +455,7 @@
         var memoInCallback, itemInCallback;
 
         _.reduce(['item'], function(memo, item) {
-          memoInCallback = memoInCallback;
+          memoInCallback = memo;
           itemInCallback = item;
         }, 'memo');
 
@@ -468,6 +468,7 @@
 
         _.reduce([1, 2, 3, 4], function(memo, item) {
           // FILL_ME_IN
+          orderTraversed.push(item);
           // _.identity(memo)
           // Add a line here that makes this test pass
           // for a working implementation of reduce

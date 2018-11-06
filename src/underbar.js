@@ -177,23 +177,29 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    if (accumulator !== undefined) {
-      _.each(collection, function(accumulator, val) {
-        accumulator = iterator(accumulator, val);
-      });
-    // collection (arr)
-    // for one ele of the arr
-    // applying our iterator -> result goes to accumulator
-/*
-test 
-*/
+    // if (accumulator !== undefined) {
+    //   _.each(collection, function(accumulator, val) {
+    //     accumulator = iterator(accumulator, val);
+    //   });
+    // // check for accumulator (count number arguments)
+    // } else {
+    //   accumulator = collection[0];
+    //   for (let i = 1; i < collection.length; i++) {
+    //     accumulator = iterator(accumulator, collection[i]);
+    //   }
+    // }
+    // return accumulator;
 
-    } else {
-      accumulator = collection[0];
-      for (let i = 1; i < collection.length; i++) {
-        accumulator = iterator(accumulator, collection[i]);
+    let hasAccumulator = arguments.length === 3;
+
+    _.each(collection, function(val) {
+      if (!hasAccumulator) {
+        hasAccumulator = true;
+        accumulator = val;
+      } else {
+        accumulator = iterator(accumulator, val);
       }
-    }
+    });
     return accumulator;
   };
 
